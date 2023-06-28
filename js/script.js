@@ -194,9 +194,8 @@ const navItemsClickHandler = (evt) => {
 };
 const closeModalHandler = () => {
   modalContainer.classList.remove('shown');
-}
-const createModalPopupContent = ({ description, cite }) => {
-  return `
+};
+const createModalPopupContent = ({ description, cite }) => `
   <div class="modal-popup">
     <button class="close-button" type="button">
       <span class="visually-hidden">Закрыть окно</span>
@@ -206,7 +205,10 @@ const createModalPopupContent = ({ description, cite }) => {
       <cite>${cite}</cite>
     </div>
   </div>
-  `
+  `;
+const addChildElementFromString = (parent, domString) => {
+  parent.innerHTML = '';
+  parent.insertAdjacentHTML('beforeend', domString);
 };
 const glossaryClickHandler = (evt) => {
   const element = evt.target.closest('a');
@@ -224,29 +226,20 @@ const glossaryClickHandler = (evt) => {
       modalCloseButton.addEventListener('click', closeModalHandler);
     }
   }
-}
-const createNavItemString = ({ key, items }) => {
-  return `
-    <li class="site-nav-item">
-      <a class="site-nav-link" ${items.length > 0 ? `href="#${key.toLowerCase()}"` : ''}>${key}</a>
-    </li>
+};
+const createNavItemString = ({ key, items }) => `
+  <li class="site-nav-item">
+    <a class="site-nav-link" ${items.length > 0 ? `href="#${key.toLowerCase()}"` : ''}>${key}</a>
+  </li>
   `;
-};
-const createGlossaryString = ({ key, items }) => {
-  return `
-  ${items.length > 0 ?
-      `<section class="glossary-section">
-      <h2 id="${key.toLowerCase()}">${key}</h2>
-      <ul class="glossary-list">
-        ${items.map(({ term }) => `<li class="glossary-item"><a href="#" data-value="${term}">${term}</a></li>`).join('')}
-      </ul>
-    </section>`: ''} `;
-};
-
-const addChildElementFromString = (parent, domString) => {
-  parent.innerHTML = '';
-  parent.insertAdjacentHTML('beforeend', domString);
-};
+const createGlossaryString = ({ key, items }) => `
+  <section class="glossary-section">
+    <h2 id="${key.toLowerCase()}">${key}</h2>
+    ${items.length > 0 ?
+    `<ul class="glossary-list">
+      ${items.map(({ term }) => `<li class="glossary-item"><a href="#" data-value="${term}">${term}</a></li>`).join('')}
+    </ul>` : ''}
+  </section>` ;
 const render = () => {
   const navElementsString = terms.map(createNavItemString).join('');
   const glossaryElementsString = terms.map(createGlossaryString).join('');
