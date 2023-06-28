@@ -1,6 +1,3 @@
-'use strict'
-/* Тестовые данные */
-
 const terms = [
   {
     key: 'А',
