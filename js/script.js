@@ -188,6 +188,7 @@ const navItemsClickHandler = (evt) => {
       block.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
+        inline: 'start'
       });
     }
   }
@@ -232,14 +233,14 @@ const createNavItemString = ({ key, items }) => `
     <a class="site-nav-link" ${items.length > 0 ? `href="#${key.toLowerCase()}"` : ''}>${key}</a>
   </li>
   `;
-const createGlossaryString = ({ key, items }) => `
-  <section class="glossary-section">
+const createGlossaryString = ({ key, items }) =>
+  items.length > 0 ?
+    `<section class="glossary-section">
     <h2 id="${key.toLowerCase()}">${key}</h2>
-    ${items.length > 0 ?
-    `<ul class="glossary-list">
+    <ul class="glossary-list">
       ${items.map(({ term }) => `<li class="glossary-item"><a href="#" data-value="${term}">${term}</a></li>`).join('')}
-    </ul>` : ''}
-  </section>` ;
+    </ul>
+  </section>` : '';
 const render = () => {
   const navElementsString = terms.map(createNavItemString).join('');
   const glossaryElementsString = terms.map(createGlossaryString).join('');
