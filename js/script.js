@@ -75,7 +75,12 @@ const terms = [
   },
   {
     key: 'Г',
-    items: [],
+    items: [{
+      term: 'Галлюцинации',
+      description: '<p><dfn>Базальные эмоции</dfn> — теоретический конструкт, объединяющий эмоции минимального набора, на базе которых формируется все многообразие эмоциональных процессов и состояний. К подобным эмоциям относят эмоции радости, горя (печали), страха, гнева, удивления, отвращения.</p>',
+      cite: 'Материал из Википедии — свободной энциклопедии',
+    },
+    ],
   },
   {
     key: 'Д',
@@ -202,7 +207,7 @@ const createModalPopupContent = ({ description, cite }) => `
       <span class="visually-hidden">Закрыть окно</span>
     </button>
     <div class="modal-content">
-      <p>${description}</p>
+      ${description}
       <cite>${cite}</cite>
     </div>
   </div>
@@ -230,13 +235,13 @@ const glossaryClickHandler = (evt) => {
 };
 const createNavItemString = ({ key, items }) => `
   <li class="site-nav-item">
-    <a class="site-nav-link" ${items.length > 0 ? `href="#${key.toLowerCase()}"` : ''}>${key}</a>
+    <a class="site-nav-link" ${items.length > 0 ? `href="#${key.toUpperCase()}"` : ''}>${key}</a>
   </li>
   `;
 const createGlossaryString = ({ key, items }) =>
   items.length > 0 ?
     `<section class="glossary-section">
-    <h2 id="${key.toLowerCase()}">${key}</h2>
+    <h2 id="${key.toUpperCase()}">${key}</h2>
     <ul class="glossary-list">
       ${items.map(({ term }) => `<li class="glossary-item"><a href="#" data-value="${term}">${term}</a></li>`).join('')}
     </ul>
